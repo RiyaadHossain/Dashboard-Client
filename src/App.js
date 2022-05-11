@@ -1,9 +1,9 @@
 import './App.css';
-import { Routes, Route } from "react-router-dom";
 import Home from './Components/Home/Home';
 import Products from './Components/Products/Products';
 import AddProducts from './Components/AddProducts/AddProducts';
 import DashBoard from './Components/DashBoard/DashBoard';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
