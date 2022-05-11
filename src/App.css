@@ -1,13 +1,13 @@
 .active-link{
-
+    background-color: rgba(192, 185, 185, 0.27);
     font-weight: 500;
     color: rgb(26, 153, 233);
-    margin-left: 45px;
     font-size: 18px;
+    padding: 10px 20px;
 }
 .link{
     font-weight: 500;
     color: aliceblue;
-    margin-left: 45px;
     font-size: 18px;
+    padding: 10px 20px;
 }
