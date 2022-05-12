@@ -7,6 +7,7 @@ const Products = () => {
   const [isDeleted, setIsDeleted] = useState(false);
   const [limit, setLimit] = useState(5);
   const [pageNumber, setPageNumber] = useState(0);
+  const [totalPage, setTotalPage] = useState(0)
 
   useEffect(() => {
     // IFFE
@@ -15,11 +16,11 @@ const Products = () => {
         `http://localhost:5000/products?limit=${limit}&pageNumber=${pageNumber}`
       );
       if (!data?.success) return toast.error(data?.error);
-
       setProducts(data.data);
+      setTotalPage(Math.ceil(data.count / limit))
+      console.dir(totalPage)
     })();
-  }, [isDeleted, limit, pageNumber]);
-  console.dir(limit, pageNumber);
+  }, [isDeleted, limit, pageNumber, totalPage]);
   const handleDelete = async (id) => {
     const { data } = await axios.delete(`http://localhost:5000/product/${id}`);
     if (data.success) toast.success(data.message);
@@ -81,10 +82,11 @@ const Products = () => {
         </div>
       </div>
       <div className="text-center">
-        {[...Array(5).keys()].map((page) => (
+        {[...Array(totalPage).keys()].map((page) => (
           <button
+          key={page}
             onClick={() => setPageNumber(page)}
-            className={`mx-5 border-2 border-blue-600 py-1 font-bold px-3 ${
+            className={`mx-3 border-2 border-blue-600 py-1 font-bold px-3 ${
               page === pageNumber ? "bg-blue-600 text-white" : ""
             }`}
           >
@@ -94,7 +96,7 @@ const Products = () => {
       <select
         id="countries"
         onChange={(e) => setLimit(e.target.value)}
-        class="bg-gray-50 border w-16 font-bold inline-block border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        className="bg-gray-50 ml-3 mb-12 border w-16 font-bold inline-block border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
         <option value="5">5</option>
         <option value="10">10</option>
