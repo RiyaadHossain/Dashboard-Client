@@ -1,34 +1,36 @@
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import React from "react";
 
 const AddProducts = () => {
-
-    const handleAddProduct = async e => {
-        e.preventDefault()
-        const product = {
-            name: e.target.product.value,
-            price: e.target.price.value,
-            imgUrl: e.target.imgUrl.value
-        }
-        const { data } = await axios.post('http://localhost:5000/product', product)
-        if(!data.success) return toast.error(data.error)
-        toast.success(data.message)
-        e.target.reset()
-    }
-
-
+  const handleAddProduct = async (e) => {
+    e.preventDefault();
+    const product = {
+      name: e.target.product.value,
+      price: e.target.price.value,
+      imgUrl: e.target.imgUrl.value,
+    };
+    const { data } = await axios.post("http://localhost:5000/product", product);
+    if (!data.success) return toast.error(data.error);
+    toast.success(data.message);
+    e.target.reset();
+  };
 
   return (
     <div className="container mx-auto">
-        <Toaster />
-        <h3 className='text-center mt-12 text-3xl font-semibold text-blue-600'>Add A New Product</h3>
-      <form onSubmit={handleAddProduct} className=" border-2 p-6 mt-12 rounded border-zinc-600">
+      <Toaster />
+      <h3 className="text-center mt-12 text-3xl font-semibold text-blue-600">
+        Add A New Product
+      </h3>
+      <form
+        onSubmit={handleAddProduct}
+        className=" border-2 p-6 mt-12 w-[500px] mx-auto rounded border-zinc-600"
+      >
         <div className="relative z-0 w-full mb-6 group">
           <input
             type="text"
             name="product"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
             required=""
           />
@@ -72,15 +74,13 @@ const AddProducts = () => {
           </label>
         </div>
 
-        <button 
-        
+        <button
           type="submit"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Add Product
         </button>
       </form>
-      
     </div>
   );
 };
